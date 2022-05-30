@@ -1,12 +1,20 @@
 const productsModel = require('../models/products');
 
-const getProducts = (id = null) => {
+const getProducts = async (id = null) => {
   if (id) {
-    return productsModel.getProductsById(id);
+    const [product] = await productsModel.getProductsById(+id);
+    return {
+      id: product[0].id,
+      name: product[0].name,
+      quantity: product[0].quantity,
+    };
   }
-  return productsModel.getAllProducts();
+  const [products] = await productsModel.getAllProducts();
+  return products;
 };
 
 module.exports = {
   getProducts,
 };
+
+getProducts(1);
