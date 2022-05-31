@@ -27,8 +27,16 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/products', productsValidation, (_req, _res) => {
-
+router.post('/', productsValidation, async (req, res) => {
+  try {
+    const register = await productsService.registerProduct(req.body);
+    if (register.message) {
+      return res.status(409).json({ message: register.message });
+    }
+    return res.status(201).json(register);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;
