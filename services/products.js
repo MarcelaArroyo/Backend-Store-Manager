@@ -40,8 +40,15 @@ const uptadeProduct = async (id, { name, quantity }) => {
   return result;
 };
 
+const deteleProduct = async (id) => {
+  const [product] = await productsModel.deteleProduct(id);
+  if (product.affectedRows === 0) return { message: 'Product not found' };
+  return product;
+};
+
 module.exports = {
   getProducts,
   registerProduct,
   uptadeProduct,
+  deteleProduct,
 };

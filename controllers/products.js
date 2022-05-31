@@ -48,4 +48,15 @@ router.put('/:id', productsValidation, async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const exclude = await productsService.deteleProduct(id);
+    if (exclude.message) return res.status(404).json({ message: exclude.message });
+    return res.status(204).end();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
