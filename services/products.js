@@ -16,5 +16,3 @@ const getProducts = async (id = null) => {
 module.exports = {
   getProducts,
 };
-
-getProducts(1);
