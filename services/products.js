@@ -16,9 +16,8 @@ const getProducts = async (id = null) => {
 const registerProduct = async ({ name, quantity }) => {
   const products = await getProducts();
   const hasName = products.some((product) => product.name === name);
-  if (hasName) {
-    return { message: 'Product already exists' };
-  }
+  if (hasName) return { message: 'Product already exists' };
+
   const [product] = await productsModel.registerProduct(name, quantity);
   const result = {
     id: product.insertId,
@@ -27,8 +26,6 @@ const registerProduct = async ({ name, quantity }) => {
   };
   return result;
 };
-
-registerProduct({ name: 'produto1', quantity: 10 });
 
 module.exports = {
   getProducts,
