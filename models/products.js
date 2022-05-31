@@ -11,8 +11,15 @@ const registerProduct = (name, quantity) => connection.execute(
     VALUES (?, ?)`, [name, quantity],
 );
 
+const uptadeProduct = (id, name, quantity) => connection.execute(
+  `UPDATE StoreManager.products
+    SET name = ?, quantity = ?
+    WHERE id = ?`, [name, quantity, id],
+);
+
 module.exports = {
   getAllProducts,
   getProductsById,
   registerProduct,
+  uptadeProduct,
 };
