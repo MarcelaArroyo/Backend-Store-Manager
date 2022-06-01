@@ -28,7 +28,16 @@ const registerSale = async (sales) => {
   };
 };
 
+const uptadeSale = (id, sale) => {
+  salesModel.uptadeSale(id, sale[0]);
+  return {
+    saleId: +id,
+    itemUpdated: sale,
+  };
+};
+
 module.exports = {
   getSales,
   registerSale,
+  uptadeSale,
 };

@@ -21,8 +21,15 @@ const registerSale = async (sales) => {
   return saleId;
 };
 
+const uptadeSale = (id, { productId, quantity }) => connection.execute(
+  `UPDATE StoreManager.sales_products
+    SET product_id = ?, quantity = ?
+    WHERE sale_id = ?`, [productId, quantity, id],
+);
+
 module.exports = {
   getAllSales,
   getSalesById,
   registerSale,
+  uptadeSale,
 };
