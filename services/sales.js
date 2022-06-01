@@ -36,8 +36,15 @@ const uptadeSale = (id, sale) => {
   };
 };
 
+const daleteSale = async (id) => {
+  const [sale] = await salesModel.daleteSale(id);
+  if (sale.affectedRows === 0) return { message: 'Sale not found' };
+  return sale;
+};
+
 module.exports = {
   getSales,
   registerSale,
   uptadeSale,
+  daleteSale,
 };

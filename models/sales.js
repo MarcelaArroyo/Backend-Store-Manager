@@ -27,9 +27,15 @@ const uptadeSale = (id, { productId, quantity }) => connection.execute(
     WHERE sale_id = ?`, [productId, quantity, id],
 );
 
+const daleteSale = (id) => connection.execute(
+  `DELETE FROM StoreManager.sales
+    WHERE id = ?`, [id],
+);
+
 module.exports = {
   getAllSales,
   getSalesById,
   registerSale,
   uptadeSale,
+  daleteSale,
 };
