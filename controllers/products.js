@@ -1,20 +1,15 @@
-const express = require('express');
-
-const router = express.Router();
-
 const productsService = require('../services/products');
-const productsValidation = require('../middlewares/productsValidation');
 
-router.get('/', async (_req, res) => {
+const getProducts = async (_req, res) => {
   try {
     const products = await productsService.getProducts();
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-router.get('/:id', async (req, res) => {
+const getProductsById = async (req, res) => {
   try {
     const { id } = req.params;
     if (id) {
@@ -25,9 +20,9 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: 'Product not found' });
   }
-});
+};
 
-router.post('/', productsValidation, async (req, res) => {
+const createProducts = async (req, res) => {
   try {
     const register = await productsService.registerProduct(req.body);
     if (register.message) return res.status(409).json({ message: register.message });
@@ -35,9 +30,9 @@ router.post('/', productsValidation, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-router.put('/:id', productsValidation, async (req, res) => {
+const uptadeProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const uptade = await productsService.uptadeProduct(id, req.body);
@@ -46,9 +41,9 @@ router.put('/:id', productsValidation, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-router.delete('/:id', async (req, res) => {
+const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const exclude = await productsService.deteleProduct(id);
@@ -57,6 +52,12 @@ router.delete('/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getProducts,
+  getProductsById,
+  createProducts,
+  uptadeProduct,
+  deleteProduct,
+};

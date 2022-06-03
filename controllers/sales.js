@@ -1,19 +1,15 @@
-const express = require('express');
-
-const router = express.Router();
-
 const salesService = require('../services/sales');
 
-router.get('/', async (_req, res) => {
+const getSales = async (_req, res) => {
   try {
     const sales = await salesService.getSales();
     res.status(200).json(sales);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-router.get('/:id', async (req, res) => {
+const getSaleById = async (req, res) => {
   try {
     const { id } = req.params;
     if (id) {
@@ -27,18 +23,18 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-router.post('/', async (req, res) => {
+const createSales = async (req, res) => {
   try {
     const register = await salesService.registerSale(req.body);
     res.status(201).json(register);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-router.put('/:id', (req, res) => {
+const uptadeSale = async (req, res) => {
   try {
     const { id } = req.params;
     const update = salesService.uptadeSale(id, req.body);
@@ -46,9 +42,9 @@ router.put('/:id', (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-router.delete('/:id', async (req, res) => {
+const deleteSale = async (req, res) => {
   try {
     const { id } = req.params;
     const exclude = await salesService.daleteSale(id);
@@ -57,6 +53,12 @@ router.delete('/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getSales,
+  getSaleById,
+  createSales,
+  uptadeSale,
+  deleteSale,
+};
