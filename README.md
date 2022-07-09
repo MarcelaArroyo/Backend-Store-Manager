@@ -1,4 +1,4 @@
-# Projeto Store
+# Projeto Store Manager
 
 É a criação de um API REST E RESTful com node.js e express, construida em camadas de Arquitetura (controllers, middleware, services e models). Fazendo as requisições em um banco de dados relacional utilizando querys mysql.
 
